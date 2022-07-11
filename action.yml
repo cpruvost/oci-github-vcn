@@ -1,13 +1,58 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+# hey guys
+
+name: 'oci-cpu-mem'
+description: 'Count CPU and Memory on OCI'
+author: 'Christophe Pruvost @cpruvost / Ralf Lang @hoehenunterschied'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  regionscript:
+    description: 'OCI Region to count'
     required: true
-    default: 'World'
+  mode:
+    description: 'OCI CLI (use ocicli) or REST (rest). if not ocicli then rest is used'
+    required: true  
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  cpu:
+    description: Number of CPU 
+  mem:
+    description: Memory Used
+  nbinst:
+    description: number of instances      
+  #some_output:
+    #description: some output    
+  
 runs:
-  using: 'node16'
-  main: 'index.js'
+  using: 'node12'
+  main: 'dist/index.js'
+  pre-if: 'runner.os == linux'
+
+branding:
+  icon: 'cloud'
+  color: 'red'
+
+
+# - name: Cache oci-cli
+#   id: cache-oci-cli
+#   uses: actions/cache@v2
+#   with:
+#     path: |
+#       ~/.oci
+#       /usr/local/bin/oci
+#       ~/bin/oci-cli-scripts
+#       ~/lib/oracle-cli
+#     key: ${{ runner.os }}-oci-1
+
+# - name: Install oci-cli
+#   if: steps.cache-oci-cli.outputs.cache-hit != 'true'
+#   run: |
+#     wget https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh
+#     sudo bash install.sh --accept-all-defaults --exec-dir /usr/local/bin
+#     mkdir -p ~/.oci
+#     echo [DEFAULT] >> ~/.oci/config
+#     echo user="${{ secrets.OCI_USER }}" >> ~/.oci/config
+#     echo fingerprint="${{ secrets.OCI_FINGERPRINT }}" >> ~/.oci/config
+#     echo key_file=~/.oci/oci_api_key.pem >> ~/.oci/config
+#     echo tenancy="${{ secrets.OCI_TENANCY }}" >> ~/.oci/config
+#     echo region="${{ secrets.OCI_REGION }}" >> ~/.oci/config
+#     echo "${{ secrets.OCI_API_KEY }}" >> ~/.oci/oci_api_key.pem
+#     oci setup repair-file-permissions --file ~/.oci/config
+#     oci setup repair-file-permissions --file ~/.oci/oci_api_key.pem

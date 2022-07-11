@@ -1,15 +1,39 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
+const CORE = require('@actions/core');
+// const GitHub = require('@actions/github');
+const FS = require('fs');
+const OS = require('os');
+const Util = require('util');
+const execSync = Util.promisify(require('child_process').execSync);
 
 try {
-  // `who-to-greet` input defined in action metadata file
-  const nameToGreet = core.getInput('who-to-greet');
-  console.log(`Hello ${nameToGreet}!`);
-  const time = (new Date()).toTimeString();
-  core.setOutput("time", time);
-  // Get the JSON webhook payload for the event that triggered the workflow
-  const payload = JSON.stringify(github.context.payload, undefined, 2)
-  console.log(`The event payload: ${payload}`);
+
+  if(process.platform !== 'linux') {
+    throw new Error('This action runs only on Linux currently');
+  }
+
+  const someInput = CORE.getInput('regionscript');
+  CORE.debug(`Region Script Count : ${someInput}`)
+  const mode = CORE.getInput('mode');
+  CORE.debug(`Mode : ${mode}`)
+
+  //Test with a simple script
+  //execSync(`chmod +x ./some-bash-script.sh`);
+  //execSync(`bash ./some-bash-script.sh ${someInput}`, {stdio: 'inherit'});
+
+  if (mode.trim() === "ocicli")
+  {
+    execSync(`chmod +x ./ociresources.sh`);
+    //execSync(`bash ./ociresources.sh ${someInput}`, {stdio: 'inherit'});
+    execSync(`bash ./ociresources.sh`, {stdio: 'inherit'});
+  }  
+  else
+  {
+    execSync(`chmod +x ./ociresourcesrest.sh`);
+    //execSync(`bash ./ociresourcesrest.sh ${someInput}`, {stdio: 'inherit'});
+    execSync(`bash ./ociresourcesrest.sh`, {stdio: 'inherit'});
+  }
+
+  
 } catch (error) {
-  core.setFailed(error.message);
+  CORE.setFailed(error.message);
 }

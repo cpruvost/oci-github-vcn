@@ -1,0 +1,49 @@
+name: ci
+
+on: 
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+    branches:
+      - master  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v3
+      
+      - name: Install OCI CLI
+        uses: cpruvost/oci-cli-action@v1.0.3
+        with:
+          user: "${{ secrets.OCI_USER }}"
+          fingerprint: "${{ secrets.OCI_FINGERPRINT }}"
+          tenancy: "${{ secrets.OCI_TENANCY }}"
+          region: "${{ secrets.OCI_REGION }}"
+          api_key: |
+            ${{ secrets.OCI_API_KEY }}
+          cli_version: master  
+
+      - run: cat ~/.oci/config
+
+      - run: |
+         oci -v
+         oci iam region list
+
+      - name: Run OCI Counter Script
+        uses: cpruvost/oci-cpu-mem@master
+        id: counter
+        with:
+          regionscript: |
+            eu-marseille-1
+            eu-frankfurt-1
+          mode: rest
+        
+      - run: |
+          echo "CPU : ${{ steps.counter.outputs.cpu }}"  
+          echo "MEM : ${{ steps.counter.outputs.mem }}"    
+          echo "NBINST : ${{ steps.counter.outputs.nbinst }}"  
+         
+        
