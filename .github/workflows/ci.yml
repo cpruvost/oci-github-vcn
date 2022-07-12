@@ -40,7 +40,7 @@ jobs:
         run: terraform plan -no-color   
 
       - name: Terraform Apply
-        if: "!contains(github.event.head_commit.message, 'apply')"
+        if: "contains(github.event.head_commit.message, 'apply')"
         id: apply
         run: terraform apply -auto-approve
 
