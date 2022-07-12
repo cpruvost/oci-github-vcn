@@ -33,11 +33,11 @@ variable "private_key" {
 
 # region (us-phoenix-1, ca-toronto-1, etc)
 variable "region" {
-  default     = "eu-frankfurt-1"
+  default     = "eu-paris-1"
   description = "region (us-phoenix-1, ca-toronto-1, etc)"
   validation {
-    condition     = contains(["eu-frankfurt-1", "eu-amsterdam-1", "uk-london-1"], var.region)
-    error_message = "The available regions are [\"eu-frankfurt-1\", \"eu-amsterdam-1\", \"uk-london-1\"]."
+    condition     = contains(["eu-frankfurt-1", "eu-amsterdam-1", "uk-london-1", "eu-paris-1"], var.region)
+    error_message = "The available regions are [\"eu-frankfurt-1\", \"eu-amsterdam-1\", \"eu-paris-1\", \"uk-london-1\"]."
   }
 }
 
