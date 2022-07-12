@@ -53,7 +53,7 @@ variable "default_compartment_id" {
 # the prefix that will be used for all the names of the OCI artifacts that this automation will provision
 variable "names_prefix" {
   type        = string
-  default     = "technip-demo-"
+  default     = "my-demo-"
   description = "the prefix that will be used for all the names of the OCI artifacts that this automation will provision"
 }
 
