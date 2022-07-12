@@ -61,60 +61,6 @@ locals {
       }
     }
   }
-
-  #########################
-  ## Compute Details
-  #########################
-  compute_details = {
-    bastion_instance = {
-      name       = oci_core_instance.bastion_instance.display_name,
-      public_ip  = oci_core_instance.bastion_instance.public_ip,
-      private_ip = oci_core_instance.bastion_instance.create_vnic_details[0].private_ip,
-      hostname   = oci_core_instance.bastion_instance.create_vnic_details[0].hostname_label
-    },
-    web_instances = {
-      for web_instance in oci_core_instance.web_instance :
-      web_instance.display_name => {
-        display_name = web_instance.display_name
-        private_ip   = web_instance.create_vnic_details[0].private_ip,
-        hostname     = web_instance.create_vnic_details[0].hostname_label,
-        web_server   = "${var.install_product == "Apache" ? "Apache Web server listening on http://${web_instance.create_vnic_details[0].private_ip}:80" : var.install_product == "Nginx" ? "NGINX Web server listening on http://${web_instance.create_vnic_details[0].private_ip}:80" : "No WEB Server installed"}"
-      }
-    }
-  }
-
-  #########################
-  ## LbaaS Details
-  #########################
-  lbaas_details = {
-    coa_lbaas = {
-      name    = oci_load_balancer_load_balancer.coa_load_balancer.display_name,
-      shape   = oci_load_balancer_load_balancer.coa_load_balancer.shape,
-      subnet  = oci_core_subnet.coa_public_subnet.display_name,
-      private = oci_load_balancer_load_balancer.coa_load_balancer.is_private,
-      backend_set = {
-        name   = oci_load_balancer_backend_set.coa_backend_set.name,
-        policy = oci_load_balancer_backend_set.coa_backend_set.policy,
-        backends = {
-          for backend in oci_load_balancer_backend.coa_backends :
-          backend.ip_address => {
-            ip_address = backend.ip_address,
-            port       = backend.port
-          }
-        }
-        listeners = {
-          for listener in oci_load_balancer_listener.coa_listeners :
-          listener.name => {
-            name       = listener.name,
-            protocol   = listener.protocol,
-            ip_address = oci_load_balancer_load_balancer.coa_load_balancer.ip_address_details[0].ip_address,
-            port       = listener.port,
-            app_url    = "${listener.port == 443 ? "https://${oci_load_balancer_load_balancer.coa_load_balancer.ip_address_details[0].ip_address}:${listener.port}" : "http://${oci_load_balancer_load_balancer.coa_load_balancer.ip_address_details[0].ip_address}:${listener.port}"}"
-          }
-        }
-      }
-    }
-  }
 }
 
 #########################
@@ -125,7 +71,7 @@ output "COA_Demo_Details" {
   value = {
     automation_run_by  = data.oci_identity_user.coa_demo_executer.name,
     networking_details = local.networking_details,
-    compute_details    = local.compute_details,
-    lbaas_details      = local.lbaas_details
+    #compute_details    = local.compute_details,
+    #lbaas_details      = local.lbaas_details
   }
 }

@@ -1,3 +1,11 @@
 node_modules
 .DS_Store
 .docker
+
+#  Local .terraform directories
+**/.terraform/*
+.terraform.lock.hcl
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
