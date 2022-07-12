@@ -23,9 +23,13 @@ variable "fingerprint" {
 }
 
 # this is the full path on your local system to the private key used for the API key pair
-variable "private_key_path" {
-  description = "This is the full path on your local system to the private key used for the API key pair"
+#variable "private_key_path" {
+ #description = "This is the full path on your local system to the private key used for the API key pair"
+#}
+variable "private_key" {
+  description = "This is the private key used for the API key pair"
 }
+
 
 # region (us-phoenix-1, ca-toronto-1, etc)
 variable "region" {

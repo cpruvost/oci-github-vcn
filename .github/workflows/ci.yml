@@ -17,8 +17,27 @@ jobs:
       
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
+        env:
+          TF_TOKEN_app_terraform_io: "EBF2rMeRYBmfsw.atlasv1.YhdzqJ91gXjlizkAKx92nIyayyDpMSkCvNWk8Q1i94YTm3Q73Em5re437SIzPfZPVEM"
 
       - run: |
          terraform -v 
+
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color    
          
         

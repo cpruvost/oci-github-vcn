@@ -9,3 +9,7 @@ node_modules
 # .tfstate files
 *.tfstate
 *.tfstate.*
+
+# Cloud Account Parameter
+env-vars.ps1
+terraform.tfvars.save
