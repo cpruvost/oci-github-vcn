@@ -17,7 +17,7 @@ resource "oci_core_vcn" "coa_demo_vcn" {
   #Optional
   cidr_block = var.vcn_cidr
   defined_tags = {
-    "CCA_Basic_Tag.email" = data.oci_identity_user.coa_demo_executer.name
+    "Mandatory_Tags.Creator" = data.oci_identity_user.coa_demo_executer.name
   }
   display_name   = "${var.names_prefix}vcn"
   dns_label      = "coavcn"
@@ -33,7 +33,7 @@ resource "oci_core_internet_gateway" "coa_internet_gateway" {
   #Optional
   enabled = true
   defined_tags = {
-    "CCA_Basic_Tag.email" = data.oci_identity_user.coa_demo_executer.name
+    "Mandatory_Tags.Creator" = data.oci_identity_user.coa_demo_executer.name
   }
   display_name  = "${var.names_prefix}IG"
   freeform_tags = var.freeform_tags
@@ -46,7 +46,7 @@ resource "oci_core_nat_gateway" "coa_nat_gateway" {
 
   #Optional
   defined_tags = {
-    "CCA_Basic_Tag.email" = data.oci_identity_user.coa_demo_executer.name
+    "Mandatory_Tags.Creator" = data.oci_identity_user.coa_demo_executer.name
   }
   display_name  = "${var.names_prefix}NAT-GW"
   freeform_tags = var.freeform_tags
@@ -59,7 +59,7 @@ resource "oci_core_route_table" "coa_ig_route_table" {
 
   #Optional
   defined_tags = {
-    "CCA_Basic_Tag.email" = data.oci_identity_user.coa_demo_executer.name
+    "Mandatory_Tags.Creator" = data.oci_identity_user.coa_demo_executer.name
   }
   display_name  = "${var.names_prefix}ig-route-table"
   freeform_tags = var.freeform_tags
@@ -80,7 +80,7 @@ resource "oci_core_route_table" "coa_nat_gw_route_table" {
 
   #Optional
   defined_tags = {
-    "CCA_Basic_Tag.email" = data.oci_identity_user.coa_demo_executer.name
+    "Mandatory_Tags.Creator" = data.oci_identity_user.coa_demo_executer.name
   }
   display_name  = "${var.names_prefix}nat-gw-route-table"
   freeform_tags = var.freeform_tags
@@ -102,7 +102,7 @@ resource "oci_core_security_list" "coa_vcn_security_list" {
   #Optional
   display_name = "${var.names_prefix}vcn-security-list"
   defined_tags = {
-    "CCA_Basic_Tag.email" = data.oci_identity_user.coa_demo_executer.name
+    "Mandatory_Tags.Creator" = data.oci_identity_user.coa_demo_executer.name
   }
   freeform_tags = var.freeform_tags
 
@@ -172,7 +172,7 @@ resource "oci_core_security_list" "coa_public_subnet_security_list" {
   #Optional
   display_name = "${var.names_prefix}public-subnet-security-list"
   defined_tags = {
-    "CCA_Basic_Tag.email" = data.oci_identity_user.coa_demo_executer.name
+    "Mandatory_Tags.Creator" = data.oci_identity_user.coa_demo_executer.name
   }
   freeform_tags = var.freeform_tags
 
@@ -208,7 +208,7 @@ resource "oci_core_security_list" "coa_private_subnet_security_list" {
   #Optional
   display_name = "${var.names_prefix}private-subnet-security-list"
   defined_tags = {
-    "CCA_Basic_Tag.email" = data.oci_identity_user.coa_demo_executer.name
+    "Mandatory_Tags.Creator" = data.oci_identity_user.coa_demo_executer.name
   }
   freeform_tags = var.freeform_tags
 
@@ -242,7 +242,7 @@ resource "oci_core_security_list" "coa_private_db_subnet_security_list" {
   #Optional
   display_name = "${var.names_prefix}private-db-subnet-security-list"
   defined_tags = {
-    "CCA_Basic_Tag.email" = data.oci_identity_user.coa_demo_executer.name
+    "Mandatory_Tags.Creator" = data.oci_identity_user.coa_demo_executer.name
   }
   freeform_tags = var.freeform_tags
 
@@ -276,7 +276,7 @@ resource "oci_core_subnet" "coa_private_subnet" {
 
   #Optional
   defined_tags = {
-    "CCA_Basic_Tag.email" = data.oci_identity_user.coa_demo_executer.name
+    "Mandatory_Tags.Creator" = data.oci_identity_user.coa_demo_executer.name
   }
   display_name      = "${var.names_prefix}private-subnet"
   dns_label         = "prvsubnet"
@@ -293,7 +293,7 @@ resource "oci_core_subnet" "coa_db_private_subnet" {
 
   #Optional
   defined_tags = {
-    "CCA_Basic_Tag.email" = data.oci_identity_user.coa_demo_executer.name
+    "Mandatory_Tags.Creator" = data.oci_identity_user.coa_demo_executer.name
   }
   display_name      = "${var.names_prefix}db-private-subnet"
   dns_label         = "prvdbsubnet"
@@ -310,7 +310,7 @@ resource "oci_core_subnet" "coa_public_subnet" {
 
   #Optional
   defined_tags = {
-    "CCA_Basic_Tag.email" = data.oci_identity_user.coa_demo_executer.name
+    "Mandatory_Tags.Creator" = data.oci_identity_user.coa_demo_executer.name
   }
   display_name      = "${var.names_prefix}public-subnet"
   dns_label         = "pubsubnet"
