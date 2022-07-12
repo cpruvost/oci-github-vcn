@@ -6,14 +6,14 @@
 #############################
 
 # default compartment 
-default_compartment_id = "ocid1.compartment.oc1..aaaaaaaaa532jpis6oqh4docc5dlqrwepknaeb5sss7altbpdtjcg2cb26ga"
+default_compartment_id = "ocid1.compartment.oc1..aaaaaaaan5kmdat4e75bulr3v23ebekljlaaknoorsakl3jxj4mycf4ns6ka"
 
 #############################
 # naming convension
 #############################
 
 # the prefix that will be used for all the names of the OCI artifacts that this automation will provision
-names_prefix = "coa-demo-"
+names_prefix = "my-demo-"
 
 # the defined tags to be used for all the artifacts that this automation will provision
 #defined_tags = {}
